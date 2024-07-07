@@ -1,0 +1,19 @@
+{
+  "name": "ppltv",
+  "version": "0.0.1",
+  "description": "Play PewPew Live on Samsung Smart TVs!",
+  "main": "index.js",
+  "packageType": "mods",
+  "appName": "PewPew Live for Samsung Smart TV",
+  "websiteURL": "https://pewpew.live/webasm/pewpew.html",
+  "keys": [
+    "MediaPlayPause",
+    "ColorF0Red",
+    "ColorF1Green",
+    "ColorF2Yellow",
+    "ColorF3Blue"
+  ],
+  "keywords": [],
+  "author": "Arjun",
+  "license": "ISC"
+}
