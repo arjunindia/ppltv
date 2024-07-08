@@ -150,6 +150,8 @@
     </script>
     <script type='text/javascript'>
 
+        "use strict";
+
         // Workaround emscripten limitation to change the canvas'
         // antialias flag.
         // The following code does *not* work:
@@ -160,29 +162,24 @@
             b.antialias = true;
             b.preserveDrawingBuffer = false;
             return this.savedGetContext(a, b);
-        }
-
+        };
         var statusElement = document.getElementById('status');
         var progressElement = document.getElementById('progress');
         var spinnerElement = document.getElementById('spinner');
-
         var Module = {
             preRun: [],
             postRun: [],
-            print: (function () {
+            print: function () {
                 return function (text) {
-                    if (arguments.length > 1)
-                        text = Array.prototype.slice.call(arguments).join(' ');
+                    if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
                     console.log(text);
                 };
-            })(),
-            printErr: function (text) {
-                if (arguments.length > 1)
-                    text = Array.prototype.slice.call(arguments).join(' ');
+            }(),
+            printErr: function printErr(text) {
+                if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
                 console.error(text);
-
             },
-            canvas: (function () {
+            canvas: function () {
                 var canvas = document.getElementById('canvas');
                 // As a default initial behavior, pop up an alert when webgl context is lost. To make your
                 // application robust, you may want to override this behavior before shipping!
@@ -191,10 +188,9 @@
                     alert('WebGL context lost. You will need to reload the page.');
                     e.preventDefault();
                 }, false);
-
                 return canvas;
-            })(),
-            setStatus: function (text) {
+            }(),
+            setStatus: function setStatus(text) {
                 if (!Module.setStatus.last) Module.setStatus.last = {
                     time: Date.now(),
                     text: ''
@@ -218,7 +214,7 @@
                 statusElement.innerHTML = text;
             },
             totalDependencies: 0,
-            monitorRunDependencies: function (left) {
+            monitorRunDependencies: function monitorRunDependencies(left) {
                 this.totalDependencies = Math.max(this.totalDependencies, left);
                 Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies - left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
             }
@@ -229,7 +225,6 @@
         if (!Module['arguments'][0]) {
             Module['arguments'] = [];
         }
-
         Module.setStatus('Downloading...');
         window.onerror = function (event) {
             // TODO: do not warn on ok events like simulating an infinite loop or exitStatus
@@ -242,6 +237,8 @@
     </script>
 
     <script>
+        "use strict";
+
         try {
             WebAssembly;
             var xhr = new XMLHttpRequest();
@@ -257,10 +254,9 @@
         } catch (e) {
             alert("Failed to load webasm.");
         }
-
-        const element_that_makes_sound_on_click = document.querySelector('canvas');
-        let AudioContext = window.AudioContext || window.webkitAudioContext;
-        let tempAudioContext;
+        var element_that_makes_sound_on_click = document.querySelector('canvas');
+        var AudioContext = window.AudioContext || window.webkitAudioContext;
+        var tempAudioContext;
         function init() {
             tempAudioContext = new AudioContext();
             // Safari needs an audio context created in onclick.
@@ -270,10 +266,10 @@
             if (!tempAudioContext) {
                 init();
             }
-            let frameCount = 10;
-            let myArrayBuffer = tempAudioContext.createBuffer(1, frameCount, tempAudioContext.sampleRate);
-            let channelData = myArrayBuffer.getChannelData(0);
-            for (let i = 0; i < frameCount; i++) {
+            var frameCount = 10;
+            var myArrayBuffer = tempAudioContext.createBuffer(1, frameCount, tempAudioContext.sampleRate);
+            var channelData = myArrayBuffer.getChannelData(0);
+            for (var i = 0; i < frameCount; i++) {
                 channelData[i] = 0.0;
             }
             source = tempAudioContext.createBufferSource();
@@ -281,8 +277,7 @@
             source.connect(tempAudioContext.destination);
             source.start();
             element_that_makes_sound_on_click.onclick = null;
-        }
-    </script>
+        };    </script>
 
     <script src="./index.js"></script>
 </body>
