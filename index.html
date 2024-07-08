@@ -126,6 +126,8 @@
         }
     </style>
     <script src="./polywasm-es5b.js"></script>
+    <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
+
 </head>
 
 <body>
@@ -142,7 +144,10 @@
         <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" onmouseenter="window.focus()"
             onclick="window.focus()"></canvas>
     </div>
-
+    <script>
+        // VConsole will be exported to `window.VConsole` by default.
+        var vConsole = new window.VConsole({theme: 'dark'});
+    </script>
     <script type='text/javascript'>
 
         // Workaround emscripten limitation to change the canvas'
